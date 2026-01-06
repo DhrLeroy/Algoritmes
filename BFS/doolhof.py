@@ -3,9 +3,14 @@ open = []
 
 
 def BFS():
-    open.append((0,0))
+    open.append((0,2))
 
-    for 
+    while len(open) > 0:
+        cel = open.pop()
+        x = cel[0]
+        y = cel[1]
+        print(x)
+        print(y)
 
 def maakMuur(rij,kolom):
     doolhof[rij][kolom] = "#"
