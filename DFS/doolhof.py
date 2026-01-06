@@ -1,17 +1,15 @@
 visited = []
+path = []
+teller = 0
 
-def DFS(rij,kolom, teller):
-    
+def DFS(rij,kolom):
+    global teller
     # check of rij/kolom niet in doolhof ?
     if rij < 0 or rij > max_rij-1 or kolom < 0 or kolom > max_kolom-1:
         return False
 
     # check of rij/kolom B ?
     if doolhof[rij][kolom] == "B":
-        str = ""
-        for coordinaat in visited:
-            str = str + f', {coordinaat}'
-        print(str)
         return True
 
     # check of rij/kolom # ?
@@ -23,24 +21,25 @@ def DFS(rij,kolom, teller):
         return False
     
     visited.append((rij,kolom)) 
-
-    doolhof[rij][kolom] = teller
+    doolhof[rij][kolom] = chr(teller+96)
+    if teller > 25:
+        teller = 0
     teller = teller + 1
 
     # links DFS
-    links = DFS(rij,kolom-1,teller)
+    links = DFS(rij,kolom-1)
     if links == True:
         return True
     # boven DFS
-    boven = DFS(rij-1,kolom, teller)
+    boven = DFS(rij-1,kolom)
     if boven == True:
         return True
     # rechts DFS
-    rechts = DFS(rij, kolom+1, teller)
+    rechts = DFS(rij, kolom+1)
     if rechts == True:
         return True
     # onder DFS
-    onder = DFS(rij+1, kolom, teller)
+    onder = DFS(rij+1, kolom)
     if onder == True:
         return True
     return False
@@ -62,24 +61,37 @@ def toonDoolhof():
 def maakDoolhof(rijen,kolommen):
     return [[' ']*rijen for kolom in range(kolommen)]
 
-max_rij = 5
-max_kolom = 5
+max_rij = 8
+max_kolom = 8
 
 doolhof = maakDoolhof(max_rij,max_kolom)
 
 doolhof[0][0]="A"
 
-doolhof[4][4]="B"
+doolhof[7][7]="B"
 maakMuur(1,0)
 maakMuur(1,1)
 maakMuur(1,2)
-maakMuur(3,0)
+maakMuur(1,4)
+maakMuur(1,5)
+maakMuur(1,6)
+maakMuur(2,6)
+maakMuur(3,6)
+maakMuur(4,6)
 maakMuur(3,1)
-maakMuur(3,3)
 maakMuur(3,2)
+maakMuur(4,1)
+maakMuur(5,1)
+maakMuur(6,1)
+maakMuur(7,1)
+maakMuur(5,4)
+maakMuur(5,5)
+maakMuur(5,6)
+maakMuur(5,7)
+maakMuur(6,4)
+maakMuur(7,6)
 toonDoolhof()
 
-DFS(0,0, 1)
-
-visited
-
+DFS(0,0)
+print(visited)
+toonDoolhof()
