@@ -3,14 +3,16 @@ open = []
 
 
 def BFS():
-    open.append((0,2))
-
     while len(open) > 0:
-        cel = open.pop()
-        x = cel[0]
-        y = cel[1]
-        print(x)
-        print(y)
+        #pop selecteert en verwijderd een element op een bepaalde plaats
+        huidige = open.pop(0)
+
+        (3,5)
+
+        # [] bij 'coördinaat' is het selecteert van een waarde (0=eerste, 1=tweede)
+        # bijvoorbeeld bij cor = (3,5) is cor[0] = 3 en is cor[1] = 5
+        x = huidige[0]
+        y = huidige[1]
 
 def maakMuur(rij,kolom):
     doolhof[rij][kolom] = "#"
@@ -32,6 +34,7 @@ max_kolom = 8
 doolhof = maakDoolhof(max_rij,max_kolom)
 
 doolhof[0][0]="A"
+open.append((0,0))
 
 doolhof[7][7]="B"
 maakMuur(1,0)
