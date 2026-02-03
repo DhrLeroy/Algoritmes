@@ -3,7 +3,13 @@ open = []
 
 
 def BFS():
+    letter = 97
     while len(open) > 0:
+        if letter==123:
+            print("")
+            toonDoolhof()
+            print("")
+            letter = 97
         #pop selecteert en verwijderd een element op een bepaalde plaats
         huidige = open.pop(0)
         # [] bij 'coördinaat' is het selecteert van een waarde (0=eerste, 1=tweede)
@@ -21,10 +27,21 @@ def BFS():
             r_x = richting[0]
             r_y = richting[1]
             
-            if r_x < 0:
+            if r_x < 0 or r_y < 0 or r_x >= max_kolom or r_y >= max_rij:
                 #continue betekent naar de volgende richting in de herhaling gaan
                 continue
-
+            if doolhof[r_x][r_y] == "#":
+                continue
+            if richting in visited:
+                continue
+            if doolhof[r_x][r_y] == "B":
+                open.clear()
+            else:
+                doolhof[r_x][r_y] = chr(letter)
+                visited.append(richting)
+                open.append(richting)
+            letter+=1
+            
 
 def maakMuur(rij,kolom):
     doolhof[rij][kolom] = "#"
@@ -38,7 +55,7 @@ def toonDoolhof():
         print(lijn)
 
 def maakDoolhof(rijen,kolommen):
-    return [[' ']*rijen for kolom in range(kolommen)]
+    return [[' ']*kolommen for rij in range(rijen)]
 
 max_rij = 8
 max_kolom = 8
@@ -48,7 +65,7 @@ doolhof = maakDoolhof(max_rij,max_kolom)
 doolhof[0][0]="A"
 open.append((0,0))
 
-doolhof[7][7]="B"
+doolhof[0][7]="B"
 maakMuur(1,0)
 maakMuur(1,1)
 maakMuur(1,2)
